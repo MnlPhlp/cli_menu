@@ -11,3 +11,12 @@ srcDir        = "src"
 # Dependencies
 
 requires "nim >= 1.0.0"
+
+# Tasks
+
+import os
+task docs,"generate docs":
+  selfExec "doc2 --project --git.url:https://github.com/MnlPhlp/cli_menu --git.commit:master src/cli_menu.nim"
+  rmDir("docs")
+  mvDir("src/htmldocs","docs")
+  mvFile("docs/cli_menu.html","docs/index.html")

@@ -11,7 +11,7 @@ template subMenus*(header:string, options: seq[tuple[text:string,subMenu:untyped
   ##
   ## example: 
   ## ```nim
-  ##  menu("test",@[
+  ##  subMenus("test",@[
   ##      ("option a",subMenuA),
   ##      ("option b",subMenuB)
   ##      ])
