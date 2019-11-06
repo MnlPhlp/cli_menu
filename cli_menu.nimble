@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.1.0"
+version       = "0.1.5"
 author        = "MnlPhlp"
 description   = "A library to create interactive commandline menus without writing boilerplate code."
 license       = "MIT"
