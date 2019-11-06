@@ -41,3 +41,8 @@ proc waitForEnter*() =
   hideCursor()
   discard readPasswordFromStdin("press Enter to continue")
   showCursor()
+
+proc clearScreen*() =
+  eraseScreen()
+  stdout.flushFile()
+  
