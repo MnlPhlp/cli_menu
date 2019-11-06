@@ -1,5 +1,6 @@
 import 
-  cli_menu/[output,input]
+  cli_menu/[output,input],
+  terminal
 
 proc selectMenu*(header:string, options: seq[string]): int =
   printMenu(header,options)
@@ -34,3 +35,9 @@ template subMenus*(header:string, options: seq[tuple[text:string,subMenu:untyped
       return
     (proc)(options[selection][1])()
   
+proc waitForEnter*() = 
+  ## does what the name suggests.
+  ## waits until the user presses enter.
+  hideCursor()
+  discard readPasswordFromStdin("press Enter to continue")
+  showCursor()

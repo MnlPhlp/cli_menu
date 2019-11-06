@@ -2,7 +2,8 @@
 A library to create interactive commandline menus without writing boilerplate code.
 
 ## Usage
-There are different menu types that can be used.
+There are different menu types that can be used.\
+These are just some examples. To learn about all functions read the [docs](https://mnlphlp.github.io/cli_menu/).
 
 ### subMenus
 Used to select subfunctions or submenus.
@@ -24,3 +25,5 @@ creates the output:
       Q) quit
     choose: 
    ```
+---
+## [Docs](https://mnlphlp.github.io/cli_menu/)
