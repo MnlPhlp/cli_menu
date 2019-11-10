@@ -64,7 +64,7 @@ proc clearScreen*() =
   eraseScreen()
   stdout.flushFile()
 
-proc getUserInput*(header,prompt,error: string,check: proc(x: string): bool): string =
+proc getUserInput*(header,prompt,error: string,check: proc(x: string): bool,clear=true): string =
   ## Asks the user to input something and then checks the input.
   ## The `checkFunction` must have a single string argument and the return type boolean.
   ##
@@ -84,6 +84,13 @@ proc getUserInput*(header,prompt,error: string,check: proc(x: string): bool): st
   ##  Select a file to hide.
   ##  Filename: 
   ## ```
-  clearScreen()
+  if clear:
+    clearScreen()
   echo header
   result = getInput(prompt,error,check)
+
+template getUserInput*(header,promt: string,clear=true):string  =
+  ## accepts any input
+  getUserInput(header,promt,"",proc(x: string):bool = true,clear)
+  
+  
