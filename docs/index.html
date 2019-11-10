@@ -836,6 +836,10 @@ function main() {
     title="selectMenu(header: string; options: seq[string]): int"><wbr />select<wbr />Menu<span class="attachedType"></span></a></li>
   <li><a class="reference" href="#waitForEnter"
     title="waitForEnter()"><wbr />wait<wbr />For<wbr />Enter<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#clearScreen"
+    title="clearScreen()"><wbr />clear<wbr />Screen<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#getUserInput%2Cstring%2Cstring%2Cstring%2Cproc%28string%29"
+    title="getUserInput(header, prompt, error: string; check: proc (x: string): bool): string"><wbr />get<wbr />User<wbr />Input<span class="attachedType"></span></a></li>
 
   </ul>
 </li>
@@ -865,9 +869,22 @@ function main() {
 <dl class="item">
 <a id="selectMenu,string,seq[T][string]"></a>
 <dt><pre><span class="Keyword">proc</span> <a href="#selectMenu%2Cstring%2Cseq%5BT%5D%5Bstring%5D"><span class="Identifier">selectMenu</span></a><span class="Other">(</span><span class="Identifier">header</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">options</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Identifier">string</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
-    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">,</span> <span class="Identifier">ReadIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">EOFError</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">,</span> <span class="Identifier">ReadIOEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
+<p>Asks the user to select one of the given <tt class="docutils literal"><span class="pre">options</span></tt>.</p>
+<p>The function checks if the user input is valid for the amount of options and returns the input if corret. If the input is incorrect the user is notified and asked to enter a new input. If the user quits <tt class="docutils literal"><span class="pre">-1</span></tt> is returned.</p>
+<p>example:</p>
+<p><pre class="listing"><span class="Identifier">subMenus</span><span class="Punctuation">(</span><span class="StringLit">&quot;test&quot;</span><span class="Punctuation">,</span><span class="Operator">@</span><span class="Punctuation">[</span><span class="StringLit">&quot;option a&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;option b&quot;</span><span class="Punctuation">]</span><span class="Punctuation">)</span>
+</pre> creates the output</p>
+<p><pre class="listing">
+ test
+   1) option a
+   2) option b
+   Q) quit
+ choose:
+</pre></p>
 
 &nbsp;&nbsp;<a
 href="https://github.com/MnlPhlp/cli_menu/tree/master/src/cli_menu.nim#L5"
@@ -876,14 +893,50 @@ class="link-seesrc" target="_blank">Source</a>
 
 </dd>
 <a id="waitForEnter"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#waitForEnter"><span class="Identifier">waitForEnter</span></a><span class="Other">(</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">WriteIOEffect</span><span class="Other">,</span> <span class="Identifier">ReadIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dt><pre><span class="Keyword">proc</span> <a href="#waitForEnter"><span class="Identifier">waitForEnter</span></a><span class="Other">(</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">,</span> <span class="Identifier">IOError</span><span class="Other">]</span><span class="Other">,</span>
+                    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">,</span> <span class="Identifier">ReadIOEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
-does what the name suggests. waits until the user presses enter.
+Does what the name suggests. Waits until the user presses enter.
 &nbsp;&nbsp;<a
-href="https://github.com/MnlPhlp/cli_menu/tree/master/src/cli_menu.nim#L38"
+href="https://github.com/MnlPhlp/cli_menu/tree/master/src/cli_menu.nim#L56"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/MnlPhlp/cli_menu/edit/devel/src/cli_menu.nim#L38" class="link-seesrc" target="_blank" >Edit</a>
+<a href="https://github.com/MnlPhlp/cli_menu/edit/devel/src/cli_menu.nim#L56" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+<a id="clearScreen"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#clearScreen"><span class="Identifier">clearScreen</span></a><span class="Other">(</span><span class="Other">)</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/MnlPhlp/cli_menu/tree/master/src/cli_menu.nim#L63"
+class="link-seesrc" target="_blank">Source</a>
+<a href="https://github.com/MnlPhlp/cli_menu/edit/devel/src/cli_menu.nim#L63" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+<a id="getUserInput,string,string,string,proc(string)"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#getUserInput%2Cstring%2Cstring%2Cstring%2Cproc%28string%29"><span class="Identifier">getUserInput</span></a><span class="Other">(</span><span class="Identifier">header</span><span class="Other">,</span> <span class="Identifier">prompt</span><span class="Other">,</span> <span class="Identifier">error</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">check</span><span class="Other">:</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
+    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">,</span> <span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">EOFError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">RootEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">,</span> <span class="Identifier">ReadIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+<p>Asks the user to input something and then checks the input. The <tt class="docutils literal"><span class="pre">checkFunction</span></tt> must have a single string argument and the return type boolean.</p>
+<p>If the input is invalid the user is notified with the <tt class="docutils literal"><span class="pre">error</span></tt> string and asked for new input. Empty input is always accepted.</p>
+<p>In this example the proc <tt class="docutils literal"><span class="pre">existsFile</span></tt> from the <tt class="docutils literal"><span class="pre">os</span></tt> module is used to check if the user entered a valid filepath</p>
+<p>example:</p>
+<p><pre class="listing"><span class="Keyword">import</span> <span class="Identifier">os</span>
+ <span class="Keyword">let</span> <span class="Identifier">input</span> <span class="Operator">=</span> <span class="Identifier">getUserInput</span><span class="Punctuation">(</span><span class="StringLit">&quot;Select a file to hide.&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;Filename&quot;</span><span class="Punctuation">,</span><span class="StringLit">&quot;not a valid file&quot;</span><span class="Punctuation">,</span><span class="Identifier">existsFile</span><span class="Punctuation">)</span>
+</pre> creates the output:</p>
+<p><pre class="listing">
+ Select a file to hide.
+ Filename:
+</pre></p>
+
+&nbsp;&nbsp;<a
+href="https://github.com/MnlPhlp/cli_menu/tree/master/src/cli_menu.nim#L67"
+class="link-seesrc" target="_blank">Source</a>
+<a href="https://github.com/MnlPhlp/cli_menu/edit/devel/src/cli_menu.nim#L67" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 
@@ -896,7 +949,7 @@ class="link-seesrc" target="_blank">Source</a>
                  <span class="Identifier">options</span><span class="Other">:</span> <span class="Identifier">seq</span><span class="Other">[</span><span class="Keyword">tuple</span><span class="Other">[</span><span class="Identifier">text</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">,</span> <span class="Identifier">subMenu</span><span class="Other">:</span> <span class="Identifier">untyped</span><span class="Other">]</span><span class="Other">]</span><span class="Other">)</span></pre></dt>
 <dd>
 
-<p>creates an interactive menu with submenus or other subfunctions choosen by entering a number the functions given as subfunctions must not have return values</p>
+<p>Creates an interactive menu with submenus or other subfunctions choosen by entering a number. The functions given as subfunctions must not have return values.</p>
 <p>example:</p>
 <p><pre class="listing"><span class="Identifier">subMenus</span><span class="Punctuation">(</span><span class="StringLit">&quot;test&quot;</span><span class="Punctuation">,</span><span class="Operator">@</span><span class="Punctuation">[</span>
      <span class="Punctuation">(</span><span class="StringLit">&quot;option a&quot;</span><span class="Punctuation">,</span><span class="Identifier">subMenuA</span><span class="Punctuation">)</span><span class="Punctuation">,</span>
@@ -912,9 +965,9 @@ class="link-seesrc" target="_blank">Source</a>
 </pre></p>
 
 &nbsp;&nbsp;<a
-href="https://github.com/MnlPhlp/cli_menu/tree/master/src/cli_menu.nim#L9"
+href="https://github.com/MnlPhlp/cli_menu/tree/master/src/cli_menu.nim#L27"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/MnlPhlp/cli_menu/edit/devel/src/cli_menu.nim#L9" class="link-seesrc" target="_blank" >Edit</a>
+<a href="https://github.com/MnlPhlp/cli_menu/edit/devel/src/cli_menu.nim#L27" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 
@@ -927,7 +980,7 @@ class="link-seesrc" target="_blank">Source</a>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small>Made with Nim. Generated: 2019-11-06 10:55:34 UTC</small>
+        <small>Made with Nim. Generated: 2019-11-10 17:38:20 UTC</small>
       </div>
     </div>
   </div>

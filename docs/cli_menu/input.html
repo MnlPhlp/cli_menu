@@ -828,6 +828,8 @@ function main() {
   <ul class="simple simple-toc-section">
       <li><a class="reference" href="#getSelection%2Cint"
     title="getSelection(optCount: int): int"><wbr />get<wbr />Selection<span class="attachedType"></span></a></li>
+  <li><a class="reference" href="#getInput%2Cstring%2Cstring%2Cproc%28string%29"
+    title="getInput(prompt, error: string; check: proc (x: string): bool): string"><wbr />get<wbr />Input<span class="attachedType"></span></a></li>
 
   </ul>
 </li>
@@ -843,15 +845,28 @@ function main() {
 <h1><a class="toc-backref" href="#12">Procs</a></h1>
 <dl class="item">
 <a id="getSelection,int"></a>
-<dt><pre><span class="Keyword">proc</span> <a href="#getSelection%2Cint"><span class="Identifier">getSelection</span></a><span class="Other">(</span><span class="Identifier">optCount</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">]</span><span class="Other">,</span>
-                                    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ReadIOEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dt><pre><span class="Keyword">proc</span> <a href="#getSelection%2Cint"><span class="Identifier">getSelection</span></a><span class="Other">(</span><span class="Identifier">optCount</span><span class="Other">:</span> <span class="Identifier">int</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">int</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">EOFError</span><span class="Other">,</span> <span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">,</span>
+    <span class="Identifier">IOError</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ReadIOEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">,</span> <span class="Identifier">RootEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
 <dd>
 
 
 &nbsp;&nbsp;<a
-href="https://github.com/MnlPhlp/cli_menu/tree/master/src/cli_menu/input.nim#L3"
+href="https://github.com/MnlPhlp/cli_menu/tree/master/src/cli_menu/input.nim#L8"
 class="link-seesrc" target="_blank">Source</a>
-<a href="https://github.com/MnlPhlp/cli_menu/edit/devel/src/cli_menu/input.nim#L3" class="link-seesrc" target="_blank" >Edit</a>
+<a href="https://github.com/MnlPhlp/cli_menu/edit/devel/src/cli_menu/input.nim#L8" class="link-seesrc" target="_blank" >Edit</a>
+
+</dd>
+<a id="getInput,string,string,proc(string)"></a>
+<dt><pre><span class="Keyword">proc</span> <a href="#getInput%2Cstring%2Cstring%2Cproc%28string%29"><span class="Identifier">getInput</span></a><span class="Other">(</span><span class="Identifier">prompt</span><span class="Other">,</span> <span class="Identifier">error</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">;</span> <span class="Identifier">check</span><span class="Other">:</span> <span class="Keyword">proc</span> <span class="Other">(</span><span class="Identifier">x</span><span class="Other">:</span> <span class="Identifier">string</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">bool</span><span class="Other">)</span><span class="Other">:</span> <span class="Identifier">string</span> <span><span class="Other">{</span><span class="Other pragmadots">...</span><span class="Other">}</span></span><span class="pragmawrap"><span class="Other">{.</span><span class="pragma">
+    <span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">IOError</span><span class="Other">,</span> <span class="Identifier">EOFError</span><span class="Other">,</span> <span class="Identifier">ValueError</span><span class="Other">,</span> <span class="Identifier">Exception</span><span class="Other">,</span> <span class="Identifier">OSError</span><span class="Other">]</span><span class="Other">,</span>
+    <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Identifier">ReadIOEffect</span><span class="Other">,</span> <span class="Identifier">WriteIOEffect</span><span class="Other">,</span> <span class="Identifier">RootEffect</span><span class="Other">]</span></span><span class="Other">.}</span></span></pre></dt>
+<dd>
+
+
+&nbsp;&nbsp;<a
+href="https://github.com/MnlPhlp/cli_menu/tree/master/src/cli_menu/input.nim#L30"
+class="link-seesrc" target="_blank">Source</a>
+<a href="https://github.com/MnlPhlp/cli_menu/edit/devel/src/cli_menu/input.nim#L30" class="link-seesrc" target="_blank" >Edit</a>
 
 </dd>
 
@@ -864,7 +879,7 @@ class="link-seesrc" target="_blank">Source</a>
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br/>
-        <small>Made with Nim. Generated: 2019-11-06 10:55:34 UTC</small>
+        <small>Made with Nim. Generated: 2019-11-10 17:38:20 UTC</small>
       </div>
     </div>
   </div>

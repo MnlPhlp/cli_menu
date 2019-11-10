@@ -71,6 +71,9 @@ proc getUserInput*(header,prompt,error: string,check: proc(x: string): bool): st
   ## If the input is invalid the user is notified with the `error` string and asked for new input.
   ## Empty input is always accepted.
   ##
+  ## In this example the proc `existsFile` from the `os` module is used to check
+  ## if the user entered a valid filepath
+  ##
   ## example:
   ## ```nim
   ##  import os
@@ -81,15 +84,6 @@ proc getUserInput*(header,prompt,error: string,check: proc(x: string): bool): st
   ##  Select a file to hide.
   ##  Filename: 
   ## ```
-  ## and shows the errormessage:
-  ## ```
-  ##  Invalid input:
-  ##    not a vaild file
-  ## ```
-  ## if the input is invalid.
-  ##
-  ## In this example the proc existsFile from the `os` module is used to check
-  ## if the user entered a valid filepath
   clearScreen()
   echo header
   result = getInput(prompt,error,check)
