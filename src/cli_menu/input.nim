@@ -32,7 +32,7 @@ proc getInput*(prompt,error: string,check: proc(x: string): bool): string =
   var finished = false
   while not finished:
     result = readLineFromStdin(fmt"{prompt}: ")
-    if check(result):
+    if check(result) or result == "":
       finished = true
     else:
       cursorUp()
