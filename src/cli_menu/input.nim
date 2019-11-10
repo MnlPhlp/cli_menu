@@ -1,4 +1,9 @@
-import terminal,rdstdin,strutils
+import terminal,strutils,strformat
+
+when defined(testing):
+  import ../../tests/read # make unittests possible
+else:
+  import rdstdin
 
 proc getSelection*(optCount: int): int =
   var failed = false
@@ -18,9 +23,21 @@ proc getSelection*(optCount: int): int =
         cursorUp()
         eraseLine()
         if not failed:
-          setForegroundColor(fgRed)
-          echo "invalid Input"
-          resetAttributes()
+          styledEcho(fgRed,"Invalid Input")
           failed = true
-        stdout.flushFile() # make sure attributes are reset
-    
+        stdout.flushFile()
+
+proc getInput*(prompt,error: string,check: proc(x: string): bool): string =
+  var failed = false
+  var finished = false
+  while not finished:
+    result = readLineFromStdin(fmt"{prompt}: ")
+    if check(result) or result == "":
+      finished = true
+    else:
+      cursorUp()
+      eraseLine()
+      if not failed:
+        styledEcho(fgRed,"Invalid Input\n  " & error)
+        failed = true
+      stdout.flushFile()

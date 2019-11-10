@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.1.5"
+version       = "0.2.0"
 author        = "MnlPhlp"
 description   = "A library to create interactive commandline menus without writing boilerplate code."
 license       = "MIT"
@@ -20,3 +20,6 @@ task docs,"generate docs":
   rmDir("docs")
   mvDir("src/htmldocs","docs")
   mvFile("docs/cli_menu.html","docs/index.html")
+
+task test,"run Tests":
+  selfExec"c -r -d:testing tests/t**.nim"
