@@ -20,3 +20,6 @@ task docs,"generate docs":
   rmDir("docs")
   mvDir("src/htmldocs","docs")
   mvFile("docs/cli_menu.html","docs/index.html")
+
+task test,"run Tests":
+  selfExec"c -r -d:testing tests/t**.nim"
